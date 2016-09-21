@@ -13,12 +13,12 @@ import android.database.sqlite.SQLiteDatabase;
 public class LuckyHeartWeatherDB {
 
 	/**
-	 * 数据库名
+	 * Name of local database
 	 */
 	public static final String DB_NAME = "luckyheart_weather";
 	
 	/**
-	 * 数据库版本
+	 * version of local database
 	 */
 	public static final int VERSION = 1;
 	
@@ -27,7 +27,9 @@ public class LuckyHeartWeatherDB {
 	private SQLiteDatabase db;
 	
 	/**
-	 * 将构造方法私有化并提供静态公有方法返回对象实例，以保证程序中只会有一个该对象的实例
+	 * Makes the constructor private and provides a public method to get an instance
+	 * of this object. Ensures that only one instance of this object will be created
+	 * in the whole application.
 	 */
 	private LuckyHeartWeatherDB(Context context){
 		LuckyHeartWeatherOpenHelper dbHelper = new LuckyHeartWeatherOpenHelper(context, DB_NAME, null, VERSION);
@@ -35,7 +37,7 @@ public class LuckyHeartWeatherDB {
 	}
 	
 	/**
-	 * 获取LuckyHeartWeatherDB的实例
+	 * Gets an instance of LuckyHeartWeatherDB
 	 */
 	public synchronized static LuckyHeartWeatherDB getInstance(Context context){
 		if(luckyHeartWeatherDB == null){
@@ -45,7 +47,7 @@ public class LuckyHeartWeatherDB {
 	}
 	
 	/**
-	 * 将Province实例存储到数据库
+	 * Stores an instance of Province object into local database
 	 */
 	public void saveProvince(Province province){
 		if(province != null){
@@ -57,7 +59,7 @@ public class LuckyHeartWeatherDB {
 	}
 	
 	/**
-	 * 从数据库读取全国所有的省份信息
+	 * Reads provinces info of the country from local database
 	 */
 	public List<Province> loadProvinces(){
 		List<Province> list = new ArrayList<Province>();
@@ -77,7 +79,7 @@ public class LuckyHeartWeatherDB {
 	}
 	
 	/**
-	 * 将City实例存储到数据库
+	 * Stores an instance of City object into local database
 	 */
 	public void saveCity(City city){
 		if(city != null){
@@ -90,7 +92,7 @@ public class LuckyHeartWeatherDB {
 	}
 	
 	/**
-	 * 从数据库读取某省下所有城市信息
+	 * Reads cities info of the province from local database
 	 */
 	public List<City> loadCities(int provinceId){
 		List<City> list = new ArrayList<City>();
@@ -110,7 +112,7 @@ public class LuckyHeartWeatherDB {
 	}
 	
 	/**
-	 * 将County实例存储到数据库
+	 * Stores an instance of County object into local database
 	 */
 	public void saveCounty(County county){
 		if(county != null){
@@ -123,9 +125,9 @@ public class LuckyHeartWeatherDB {
 	}
 	
 	/**
-	 * 从数据库读取某城市下的所有县信息
+	 * Reads counties info of the city from local database
 	 */
-	public List<County> loadCounty(int cityId){
+	public List<County> loadCounties(int cityId){
 		List<County> list = new ArrayList<County>();
 		Cursor cursor = db.query("County", null, "city_id = ?", new String[]{String.valueOf(cityId)}, null, null, null);
 		
